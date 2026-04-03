@@ -18,6 +18,7 @@
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
     }
+
     :root {
       --bg:            #EFEFEF;
       --primary:       #234783;
@@ -28,7 +29,11 @@
       --shadow-sm: rgba(35, 71, 131, 0.12);
       --shadow-md: rgba(35, 71, 131, 0.22);
     }
-    html, body { height: 100%; }
+
+    html, body {
+      height: 100%;
+    }
+
     body {
       background: var(--bg);
       font-family: 'DM Sans', sans-serif;
@@ -42,6 +47,8 @@
       min-height: 100dvh;
       padding: 32px 20px;
     }
+
+    /* subtle radial background accents */
     body::before {
       content: '';
       position: fixed;
@@ -52,40 +59,287 @@
       pointer-events: none;
       z-index: 0;
     }
-    .container { position: relative; z-index: 1; width: 100%; max-width: 400px; display: flex; flex-direction: column; align-items: center; }
-    .logo-wrap { margin-bottom: 24px; opacity: 0; transform: translateY(-18px); animation: fadeDown 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards; }
-    .logo-wrap svg { width: 108px; height: auto; filter: drop-shadow(0 6px 20px rgba(35,71,131,0.2)); }
-    .title { font-size: clamp(26px, 7.5vw, 34px); font-weight: 700; color: var(--primary-dark); letter-spacing: -0.6px; text-align: center; line-height: 1.15; opacity: 0; transform: translateY(16px); animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards; }
-    .divider { width: 44px; height: 3px; background: linear-gradient(90deg, var(--primary-light), var(--primary)); border-radius: 999px; margin: 14px 0; transform-origin: center; transform: scaleX(0); opacity: 0; animation: scaleLine 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards; }
-    .subtitle { font-size: 14px; font-weight: 400; color: var(--primary-light); letter-spacing: 0.4px; text-align: center; margin-bottom: 40px; opacity: 0; transform: translateY(14px); animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards; }
-    .buttons { width: 100%; display: flex; flex-direction: column; gap: 12px; }
-    .btn { display: flex; align-items: center; gap: 14px; width: 100%; padding: 16px 18px; border-radius: 18px; text-decoration: none; font-family: 'DM Sans', sans-serif; cursor: pointer; border: none; outline: none; transition: transform 0.2s cubic-bezier(0.22,1,0.36,1), box-shadow 0.2s cubic-bezier(0.22,1,0.36,1), background 0.2s ease, filter 0.2s ease; -webkit-user-select: none; user-select: none; opacity: 0; transform: translateY(22px); }
-    .btn:focus-visible { outline: 3px solid var(--primary-light); outline-offset: 2px; }
-    @media (hover: hover) { .btn:hover { transform: translateY(-3px); } }
-    .btn:active { transform: scale(0.97) translateY(0) !important; filter: brightness(0.96); }
-    .btn-icon { width: 46px; height: 46px; border-radius: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .btn-icon svg { width: 22px; height: 22px; }
-    .btn-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    .btn-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.9px; opacity: 0.7; line-height: 1; }
-    .btn-value { font-size: 14px; font-weight: 600; line-height: 1.35; white-space: pre-line; }
-    .btn-map { background: var(--primary); color: var(--white); box-shadow: 0 8px 28px var(--shadow-md); animation: fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) 0.65s forwards; }
-    @media (hover: hover) { .btn-map:hover { background: var(--primary-mid); box-shadow: 0 12px 32px rgba(35,71,131,0.32); } }
-    .btn-map .btn-icon { background: rgba(255,255,255,0.16); }
-    .btn-whatsapp { background: var(--white); color: var(--primary); box-shadow: 0 4px 16px var(--shadow-sm); border: 1.5px solid rgba(35,71,131,0.1); animation: fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) 0.78s forwards; }
-    @media (hover: hover) { .btn-whatsapp:hover { background: #f5f9ff; box-shadow: 0 8px 22px rgba(35,71,131,0.16); } }
-    .btn-whatsapp .btn-icon { background: #25D366; }
-    .btn-phone { background: var(--white); color: var(--primary); box-shadow: 0 4px 16px var(--shadow-sm); border: 1.5px solid rgba(35,71,131,0.1); animation: fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) 0.91s forwards; }
-    @media (hover: hover) { .btn-phone:hover { background: #f5f9ff; box-shadow: 0 8px 22px rgba(35,71,131,0.16); } }
-    .btn-phone .btn-icon { background: var(--primary-light); }
-    .footer { margin-top: 40px; font-size: 11.5px; font-weight: 400; color: var(--primary); letter-spacing: 0.2px; text-align: center; opacity: 0; animation: footerFade 0.6s ease 1.15s forwards; }
-    @keyframes fadeDown { to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-    @keyframes scaleLine { to { opacity: 1; transform: scaleX(1); } }
-    @keyframes footerFade { to { opacity: 0.38; } }
+
+    /* ────────────────────────────────────────
+       CONTAINER
+    ──────────────────────────────────────── */
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ────────────────────────────────────────
+       LOGO
+    ──────────────────────────────────────── */
+    .logo-wrap {
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(-18px);
+      animation: fadeDown 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+    }
+
+    .logo-wrap svg {
+      width: 108px;
+      height: auto;
+      filter: drop-shadow(0 6px 20px rgba(35,71,131,0.2));
+    }
+
+    /* ────────────────────────────────────────
+       TITLE
+    ──────────────────────────────────────── */
+    .title {
+      font-size: clamp(26px, 7.5vw, 34px);
+      font-weight: 700;
+      color: var(--primary-dark);
+      letter-spacing: -0.6px;
+      text-align: center;
+      line-height: 1.15;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
+    }
+
+    /* ────────────────────────────────────────
+       DIVIDER
+    ──────────────────────────────────────── */
+    .divider {
+      width: 44px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-light), var(--primary));
+      border-radius: 999px;
+      margin: 14px 0;
+      transform-origin: center;
+      transform: scaleX(0);
+      opacity: 0;
+      animation: scaleLine 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
+    }
+
+    /* ────────────────────────────────────────
+       SUBTITLE
+    ──────────────────────────────────────── */
+    .subtitle {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--primary-light);
+      letter-spacing: 0.4px;
+      text-align: center;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(14px);
+      animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+    }
+
+    /* ────────────────────────────────────────
+       BUTTONS
+    ──────────────────────────────────────── */
+    .buttons {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      transition:
+        transform   0.2s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow  0.2s cubic-bezier(0.22, 1, 0.36, 1),
+        background  0.2s ease,
+        filter      0.2s ease;
+      -webkit-user-select: none;
+      user-select: none;
+      opacity: 0;
+      transform: translateY(22px);
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid var(--primary-light);
+      outline-offset: 2px;
+    }
+
+    @media (hover: hover) {
+      .btn:hover {
+        transform: translateY(-3px);
+      }
+    }
+
+    .btn:active {
+      transform: scale(0.97) translateY(0) !important;
+      filter: brightness(0.96);
+    }
+
+    /* icon box */
+    .btn-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .btn-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* text stack */
+    .btn-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .btn-label {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+      opacity: 0.7;
+      line-height: 1;
+    }
+
+    .btn-value {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.35;
+      white-space: pre-line;
+    }
+
+    /* ── Map ── */
+    .btn-map {
+      background: var(--primary);
+      color: var(--white);
+      box-shadow: 0 8px 28px var(--shadow-md);
+      animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.65s forwards;
+    }
+
+    @media (hover: hover) {
+      .btn-map:hover {
+        background: var(--primary-mid);
+        box-shadow: 0 12px 32px rgba(35,71,131,0.32);
+      }
+    }
+
+    .btn-map .btn-icon {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    /* ── WhatsApp ── */
+    .btn-whatsapp {
+      background: var(--white);
+      color: var(--primary);
+      box-shadow: 0 4px 16px var(--shadow-sm);
+      border: 1.5px solid rgba(35,71,131,0.1);
+      animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.78s forwards;
+    }
+
+    @media (hover: hover) {
+      .btn-whatsapp:hover {
+        background: #f5f9ff;
+        box-shadow: 0 8px 22px rgba(35,71,131,0.16);
+      }
+    }
+
+    .btn-whatsapp .btn-icon {
+      background: #25D366;
+    }
+
+    /* ── Phone ── */
+    .btn-phone {
+      background: var(--white);
+      color: var(--primary);
+      box-shadow: 0 4px 16px var(--shadow-sm);
+      border: 1.5px solid rgba(35,71,131,0.1);
+      animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.91s forwards;
+    }
+
+    @media (hover: hover) {
+      .btn-phone:hover {
+        background: #f5f9ff;
+        box-shadow: 0 8px 22px rgba(35,71,131,0.16);
+      }
+    }
+
+    .btn-phone .btn-icon {
+      background: var(--primary-light);
+    }
+
+    /* ── Instagram ── */
+    .btn-instagram {
+      background: var(--white);
+      color: var(--primary);
+      box-shadow: 0 4px 16px var(--shadow-sm);
+      border: 1.5px solid rgba(35,71,131,0.1);
+      animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1.04s forwards;
+    }
+
+    @media (hover: hover) {
+      .btn-instagram:hover {
+        background: #f5f9ff;
+        box-shadow: 0 8px 22px rgba(35,71,131,0.16);
+      }
+    }
+
+    .btn-instagram .btn-icon {
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    }
+
+    /* ────────────────────────────────────────
+       FOOTER
+    ──────────────────────────────────────── */
+    .footer {
+      margin-top: 40px;
+      font-size: 11.5px;
+      font-weight: 400;
+      color: var(--primary);
+      letter-spacing: 0.2px;
+      text-align: center;
+      opacity: 0;
+      animation: footerFade 0.6s ease 1.15s forwards;
+    }
+
+    /* ────────────────────────────────────────
+       KEYFRAMES
+    ──────────────────────────────────────── */
+    @keyframes fadeDown {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleLine {
+      to { opacity: 1; transform: scaleX(1); }
+    }
+
+    @keyframes footerFade {
+      to { opacity: 0.38; }
+    }
   </style>
 </head>
 <body>
   <div class="container">
+
+    <!-- ── Logo ── -->
     <div class="logo-wrap" aria-label="Logo Dental Marechal">
       <svg width="160" height="158" viewBox="0 0 160 158" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dental Marechal">
         <g clip-path="url(#clip0_208_493)">
@@ -101,11 +355,28 @@
         </defs>
       </svg>
     </div>
+
+    <!-- ── Title ── -->
     <h1 class="title">Dental Marechal</h1>
+
+    <!-- ── Divider ── -->
     <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── Subtitle ── -->
     <p class="subtitle">Seu parceiro desde 2005</p>
+
+    <!-- ── Buttons ── -->
     <div class="buttons" role="list">
-      <a class="btn btn-map" href="https://share.google/Ro2eoNi1nrFg9g79b" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Ver endereço no mapa">
+
+      <!-- Map / Address -->
+      <a
+        class="btn btn-map"
+        href="https://share.google/Ro2eoNi1nrFg9g79b"
+        target="_blank"
+        rel="noopener noreferrer"
+        role="listitem"
+        aria-label="Ver endereço no mapa"
+      >
         <div class="btn-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="white"/>
@@ -117,7 +388,16 @@
 Centro · Curitiba, PR</span>
         </div>
       </a>
-      <a class="btn btn-whatsapp" href="https://wa.me/5541984172873" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Contato via WhatsApp">
+
+      <!-- WhatsApp -->
+      <a
+        class="btn btn-whatsapp"
+        href="https://wa.me/5541984172873"
+        target="_blank"
+        rel="noopener noreferrer"
+        role="listitem"
+        aria-label="Contato via WhatsApp"
+      >
         <div class="btn-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="white"/>
@@ -128,7 +408,14 @@ Centro · Curitiba, PR</span>
           <span class="btn-value">(41) 98417-2873</span>
         </div>
       </a>
-      <a class="btn btn-phone" href="tel:+554133243058" role="listitem" aria-label="Ligar para Dental Marechal">
+
+      <!-- Phone -->
+      <a
+        class="btn btn-phone"
+        href="tel:+554133243058"
+        role="listitem"
+        aria-label="Ligar para Dental Marechal"
+      >
         <div class="btn-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="white"/>
@@ -139,8 +426,32 @@ Centro · Curitiba, PR</span>
           <span class="btn-value">(41) 3324-3058</span>
         </div>
       </a>
-    </div>
+
+      <!-- Instagram -->
+      <a
+        class="btn btn-instagram"
+        href="https://www.instagram.com/dentalmarechal"
+        target="_blank"
+        rel="noopener noreferrer"
+        role="listitem"
+        aria-label="Ver perfil no Instagram"
+      >
+        <div class="btn-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="white"/>
+          </svg>
+        </div>
+        <div class="btn-text">
+          <span class="btn-label">Instagram</span>
+          <span class="btn-value">@dentalmarechal</span>
+        </div>
+      </a>
+
+    </div><!-- /buttons -->
+
+    <!-- Footer -->
     <p class="footer">© 2025 Dental Marechal · Curitiba, PR</p>
-  </div>
+
+  </div><!-- /container -->
 </body>
 </html>
